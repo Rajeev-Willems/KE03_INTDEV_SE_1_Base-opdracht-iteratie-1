@@ -20,3 +20,73 @@ html {
 body {
   margin-bottom: 60px;
 }
+container {
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: cornflowerblue;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gegevens {
+    display: flex;
+    gap: 15px;
+}
+
+.product {
+    padding: 9px 15px;
+    font-size: medium;
+}
+
+.inloggen {
+    padding: 9px 15px;
+    font-size: medium;
+}
+
+.registreren {
+    padding: 9px 15px;
+    font-size: medium;
+
+}
+.gegevens {
+    padding: 9px 15px;
+    font-size: medium;
+}
+.winkelwagen {
+    padding: 9px 15px;
+    font-size: medium;
+}}
+
+.winkel {
+    padding: 9px 15px;
+    font-size: medium;
+}
+
+.product-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 20px;
+}
+
+.product-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+}
+
+.onderaan {
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 50px;
+}
