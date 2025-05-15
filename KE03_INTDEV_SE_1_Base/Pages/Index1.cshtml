@@ -1,29 +1,40 @@
 ﻿@page
-@model KE03_INTDEV_SE_1_Base.Pages.Index1Model
+@model Index1Model
+
 
 @{
-    ViewData["Title"] = "Winkelmandje";
-}
+    <!DOCTYPE html>
+    <html lang="nl">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Winkelmandje</title>
+        <link rel="stylesheet" href="main.css" />
+    </head>
+    <body>
+        <div class="winkelmandje2">
+            <h1>Jouw winkelmandje</h1>
+            <div id="winkelmandje"></div>
+            <a asp-page="/index4" class="betalen">verder naar betalen</a>
 
-<h1>Jouw winkelmandje</h1>
+            <a asp-page="/index" class="registreren"> terug naar beginscherm</a>
+        </div>
 
-@if (Model.ProductIds == null || !Model.ProductIds.Any())
-{
-    <p>Je winkelmandje is leeg.</p>
+        
+        <script src="app.js"></script>
+        <footer class="onderaan">
+            <div class="footer">
+                <h2>Over ons</h2>
+                <h3>
+                    matrix inc is een bedrijf die in 2025 is opgericht en gevestigd is in Heerlen.
+                    Ons bedrijf is vooral gemaakt om ervoor te zorgen dat mensen veilig en snel hun mechanische producten in huis hebben
+                </h3>
+            </div>
+        </footer>
+    </body>
+    </html>
 }
-else
-{
-    <ul>
-        @foreach (var id in Model.ProductIds)
-        {
-            <li>Product ID: @id</li>
-        }
-    </ul>
-}
-
-<a asp-page="/Index5">Verder naar betalen</a>
-<br />
-<a asp-page="/Index">← Terug naar producten</a>
+   
 
 
 

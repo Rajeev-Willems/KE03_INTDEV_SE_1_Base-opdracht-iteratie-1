@@ -16,7 +16,7 @@
         <h1>Matrix.inc</h1>
 
         <div class="buttons">
-            <a href="index.cshtml" class="producten">producten</a>
+            <a asp-page="/index" class="registreren"> producten</a>
             <div class="gegevens">
                 <a asp-page="/Index2" class="inloggen">inloggen</a>
                 <a asp-page="/Index3" class="registreren">registreren</a>
@@ -27,15 +27,17 @@
         </div>
         <hr />
 
-        <div class="product-grid">
-            @foreach (var product in Model.Products)
+        <div class="parts">
+            @foreach (var parts in Model.Parts)
             {
                 <div class="product-card">
-                    <img src="@product.Id" alt="@product.Name" />
-                    <h1>@product.Name</h1>
-                    <p>Prijs = @product.Price.ToString("0.00")</p>
+                    <img src="@parts.Photo" alt="@parts.Name" />
+                    
+                    <h1>@parts.Name</h1>
+                    <p>Prijs = @parts.Price.ToString("0.00")</p>
                     <div class="beschrijving">
-                        <p>Beschrijving: @product.Description</p>
+                        <p>Beschrijving: @parts.Description</p>
+                        <button class="winkel">toevoegen aan winkelwagen</button>
                     </div>
 
                     
