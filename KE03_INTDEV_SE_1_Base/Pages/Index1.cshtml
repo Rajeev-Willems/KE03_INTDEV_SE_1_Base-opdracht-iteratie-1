@@ -1,0 +1,34 @@
+﻿@page
+@model KE03_INTDEV_SE_1_Base.Pages.Index1Model
+
+@{
+    ViewData["Title"] = "Winkelmandje";
+}
+
+<h1>Jouw winkelmandje</h1>
+
+@if (Model.ProductIds == null || !Model.ProductIds.Any())
+{
+    <p>Je winkelmandje is leeg.</p>
+}
+else
+{
+    <ul>
+        @foreach (var id in Model.ProductIds)
+        {
+            <li>Product ID: @id</li>
+        }
+    </ul>
+}
+
+<a asp-page="/Index5">Verder naar betalen</a>
+<br />
+<a asp-page="/Index">← Terug naar producten</a>
+
+
+
+
+
+
+
+
