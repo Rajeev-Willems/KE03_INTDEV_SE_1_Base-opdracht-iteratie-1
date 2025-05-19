@@ -1,4 +1,36 @@
 ﻿@page
-@model KE03_INTDEV_SE_1_Base.Pages.Index5Model
+@model Index5Model
 @{
+    ViewData["Title"] = "Overzicht klanten";
 }
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="site.css" />
+</head>
+<body>
+    <h1>Overzicht klanten</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Klant</th>
+                <th>Aantal Orders</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var c in Model.Customers)
+            {
+                <tr>
+                    <td>@c.Name</td>
+                    <td>@c.Orders.Count</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+

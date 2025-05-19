@@ -24,44 +24,74 @@ if(document.querySelectorAll('.winkel').length > 0) {
             alert(`${naam} is toegevoegd aan je winkelmandje.`);
         });
     });
-}
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const winkelmandContainer = document.getElementById('winkelmandje');
-    if (!winkelmandContainer) return;
 
-    const winkelmandje = JSON.parse(localStorage.getItem('winkelmandje')) || [];
+    document.addEventListener("DOMContentLoaded", function () {
+        const winkelmandContainer = document.getElementById('winkelmandje');
+        if (!winkelmandContainer) return;
 
-    if (winkelmandje.length === 0) {
-        winkelmandContainer.innerHTML = "<p>Je winkelmandje is leeg.</p>";
-    } else {
-        let totaal = 0;
-        winkelmandje.forEach((product, index) => {
-            totaal += parseFloat(product.prijs);
-            const div = document.createElement('div');
-            div.classList.add('product-card');
-            div.innerHTML = `
+        const winkelmandje = JSON.parse(localStorage.getItem('winkelmandje')) || [];
+
+        if (winkelmandje.length === 0) {
+            winkelmandContainer.innerHTML = "<p>Je winkelmandje is leeg.</p>";
+        } else {
+            let totaal = 0;
+            winkelmandje.forEach((product, index) => {
+                totaal += parseFloat(product.prijs);
+                const div = document.createElement('div');
+                div.classList.add('product-card');
+                div.innerHTML = `
                 <h2>${product.naam}</h2>
                 <p>Prijs: €${product.prijs}</p>
                 <button class="verwijder" data-index="${index}">Verwijder</button>
             `;
-            winkelmandContainer.appendChild(div);
+                winkelmandContainer.appendChild(div);
+            });
+
+            const totaalDiv = document.createElement('div');
+            totaalDiv.innerHTML = `<h3>Totaal: €${totaal.toFixed(2)}</h3>`;
+            winkelmandContainer.appendChild(totaalDiv);
+        }
+
+
+        winkelmandContainer.addEventListener('click', function (e) {
+            if (e.target.classList.contains('verwijder')) {
+                const index = parseInt(e.target.dataset.index);
+                winkelmandje.splice(index, 1);
+                localStorage.setItem('winkelmandje', JSON.stringify(winkelmandje));
+                location.reload();
+            }
         });
 
-        const totaalDiv = document.createElement('div');
-        totaalDiv.innerHTML = `<h3>Totaal: €${totaal.toFixed(2)}</h3>`;
-        winkelmandContainer.appendChild(totaalDiv);
-    }
 
+        <script>
 
-    winkelmandContainer.addEventListener('click', function (e) {
-        if (e.target.classList.contains('verwijder')) {
-            const index = parseInt(e.target.dataset.index);
-            winkelmandje.splice(index, 1);
-            localStorage.setItem('winkelmandje', JSON.stringify(winkelmandje));
-            location.reload();
-        }
+            document.addEventListener('DOMContentLoaded', function () {
+        const buttons = document.querySelectorAll('.add-to-cart');
+
+        buttons.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const productId = parseInt(this.getAttribute('data-id'));
+                    addToCart(productId);
+                });
+        });
     });
 
+
+            function addToCart(productId) {
+
+                let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+
+
+            cart.push(productId);
+
+
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+
+            alert("Product toegevoegd aan winkelmandje!");
+    }
+        </script>
+    }
 });
+

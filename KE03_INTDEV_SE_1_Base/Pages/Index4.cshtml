@@ -1,24 +1,31 @@
 ﻿@page
 @model KE03_INTDEV_SE_1_Base.Pages.Index4Model
-@{
-	<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="nl">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>betaalscherm</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='app.js'></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="site.js"></script>
 </head>
 <body>
-    <H1>betaling</H1>
-    <label for="betaalmethode">Kies je betaalmethode:</label>
-    <select id="betaalmethode" name="betaalmethode">
-      <option value="ideal">iDEAL</option>
-      <option value="paypal">PayPal</option>
-      <option value="creditcard">Creditcard</option>
-      <option value="overschrijving">Overschrijving</option>
-    </select>
+    <h1>betaling</h1>
+
+    <form method="post">
+        <label for="betaalmethode">Kies je betaalmethode:</label>
+        <select id="betaalmethode" name="betaalmethode">
+            <option value="ideal">iDEAL</option>
+            <option value="paypal">PayPal</option>
+            <option value="creditcard">Creditcard</option>
+            <option value="overschrijving">Overschrijving</option>
+        </select>
+
+        <button type="submit">Betalen</button>
+    </form>
+
     <a asp-page="/index">← Terug naar producten</a>
-}
+</body>
+</html>
+

@@ -1,5 +1,6 @@
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 public class IndexModel : PageModel
@@ -33,11 +34,19 @@ public class IndexModel : PageModel
     public void OnGet()
     {
         Customers = _customerRepository.GetAllCustomers().ToList();
-        Products = _productRepository.GetAllProducts().ToList();    
+        Products = _productRepository.GetAllProducts().ToList();
         Parts = _PartRepository.GetAllParts().ToList();
 
         _logger.LogInformation("Getting {CustomerCount} customers, {ProductCount} products, and {PartCount} parts",
             Customers.Count, Products.Count, Parts.Count);
     }
+    [IgnoreAntiforgeryToken] 
+    public IActionResult OnPostAddToCart([FromBody] int productId)
+    {
+       
+        return new JsonResult(new { success = true });
+    }
+
 }
+
 

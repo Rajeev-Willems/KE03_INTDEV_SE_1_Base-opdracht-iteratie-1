@@ -16,6 +16,7 @@
         <h1>Matrix.inc</h1>
 
         <div class="buttons">
+			<a asp-page="/Index`5" class="inloggen">gegevens</a>
             <a asp-page="/index" class="registreren"> producten</a>
             <div class="gegevens">
                 <a asp-page="/Index2" class="inloggen">inloggen</a>
@@ -37,7 +38,10 @@
                     <p>Prijs = @parts.Price.ToString("0.00")</p>
                     <div class="beschrijving">
                         <p>Beschrijving: @parts.Description</p>
-                        <button class="winkel">toevoegen aan winkelwagen</button>
+                        <button onclick="addToCart(@parts.Id)">🛒 Toevoegen aan winkelwagen</button>
+
+
+
                     </div>
 
                     
@@ -54,23 +58,9 @@
             </div>
         </footer>
     </div>
-<script src="site.js"></script>
+    <script src="~/site.js"></script>
+
 </body>
 </html>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Klant</th>
-            <th>Aantal Orders</th>
-        </tr>
-    </thead>
-    @foreach (var c in Model.Customers)
-    {        
-        <tr>
-            <td>@Html.DisplayName(c.Name)</td>
-            <td>@Html.DisplayName(c.Orders.Count.ToString())</td>           
-        </tr>
-    }
-</table>
