@@ -9,7 +9,7 @@ if(document.querySelectorAll('.winkel').length > 0) {
         knop.addEventListener('click', () => {
             const productKaart = knop.closest('.product-card');
             const naam = productKaart.querySelector('h1').textContent;
-            const prijsText = productKaart.querySelector('h2').textContent;
+            const prijsText = productKaart.querySelector('prijs').textContent;
             const prijs = prijsText.replace(/[^\d,]/g, '').replace(',', '.');
 
             const nieuwProduct = {
@@ -24,6 +24,32 @@ if(document.querySelectorAll('.winkel').length > 0) {
             alert(`${naam} is toegevoegd aan je winkelmandje.`);
         });
     });
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.add-to-cart');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.getAttribute('data-id');
+
+                fetch('/Index?handler=AddToCart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(parseInt(id))
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            alert("Product toegevoegd aan winkelmandje!");
+                        }
+                    });
+            });
+        });
+    });
+    </script>
+
 
 
 

@@ -3,64 +3,90 @@
 @{
     ViewData["Title"] = "Home page";
 }
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Matrix.inc</title>
-    <link rel="stylesheet" href="site.css" />
-</head>
+    <title>Matrix.inc - Producten</title>
+	<link rel="stylesheet" href="~/site.css" />
 <body>
     <div class="container">
         <h1>Matrix.inc</h1>
 
         <div class="buttons">
-			<a asp-page="/Index`5" class="inloggen">gegevens</a>
-            <a asp-page="/index" class="registreren"> producten</a>
+			<a asp-page="/Index5" class="inloggen">gegevens</a>
+            <a asp-page="/index" class="registreren">Producten</a>
             <div class="gegevens">
-                <a asp-page="/Index2" class="inloggen">inloggen</a>
-                <a asp-page="/Index3" class="registreren">registreren</a>
+                <a asp-page="/Index2" class="inloggen">Inloggen</a>
+                <a asp-page="/Index3" class="registreren">Registreren</a>
                 <a asp-page="/Index1" class="winkelmandje">🛒 Winkelmandje</a>
-
-
             </div>
         </div>
+
         <hr />
 
         <div class="parts">
-            @foreach (var parts in Model.Parts)
+            @foreach (var part in Model.Parts)
             {
                 <div class="product-card">
-                    <img src="@parts.Photo" alt="@parts.Name" />
-                    
-                    <h1>@parts.Name</h1>
-                    <p>Prijs = @parts.Price.ToString("0.00")</p>
+                    <img src="@part.Photo" alt="@part.Name" />
+                    <h2>@part.Name</h2>
+                    <p>Prijs: €@part.Price.ToString("0.00")</p>
                     <div class="beschrijving">
-                        <p>Beschrijving: @parts.Description</p>
-                        <button onclick="addToCart(@parts.Id)">🛒 Toevoegen aan winkelwagen</button>
-
-
-
+                        <p>Beschrijving: @part.Description</p>
+                        <button class="add-to-cart" data-id="@part.Id">Toevoegen aan winkelwagen</button>
                     </div>
-
-                    
-                </div>
-            }
-
                 </div>
             }
         </div>
 
-        <footer class="onderaan">
-            <div class="footer">
-                <h2>Over ons</h2>
-            </div>
-        </footer>
+     
     </div>
-    <script src="~/site.js"></script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.add-to-cart');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const id = parseInt(button.getAttribute('data-id'));
+
+                    fetch('?handler=AddToCart', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(id)
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('HTTP error ' + response.status);
+                        }
+                        return response.json();
+                    })
+                    .then(result => {
+                        if (result.success) {
+                            alert("✅ Product toegevoegd aan winkelmandje!");
+                        } else {
+                            alert("❌ Serverfout: " + (result.error || "Onbekend"));
+                        }
+                    })
+                    .catch(error => {
+                        console.error("❌ Fout bij verzenden naar server:", error);
+                        alert("❌ Verbindingsfout met server.");
+                    });
+                });
+            });
+        });
+    </script>
+
+	<script src="~/site.js"></script>
 
 </body>
 </html>
+
 
 

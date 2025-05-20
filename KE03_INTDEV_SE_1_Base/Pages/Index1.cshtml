@@ -1,46 +1,72 @@
 ﻿@page
-@model IndexModel
-
-
+@model Index1Model
 @{
-    <!DOCTYPE html>
-    <html lang="nl">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Winkelmandje</title>
-        <link rel="stylesheet" href="main.css" />
-    </head>
-    <body>
-        <div class="winkelmandje2">
-            <h1>Jouw winkelmandje</h1>
-            <div id="winkelmandje"></div>
-            <a asp-page="/index" class="betalen">verder naar betalen</a>
-
-            <a asp-page="/index" class="registreren"> terug naar beginscherm</a>
-        </div>
-
-
-        <script src="~/site.js"></script>
-
-        <footer class="onderaan">
-            <div class="footer">
-                <h2>Over ons</h2>
-                <h3>
-                    matrix inc is een bedrijf die in 2025 is opgericht en gevestigd is in Heerlen.
-                    Ons bedrijf is vooral gemaakt om ervoor te zorgen dat mensen veilig en snel hun mechanische producten in huis hebben
-                </h3>
-            </div>
-        </footer>
-    </body>
-    </html>
+    ViewData["Title"] = "Winkelmandje";
 }
-   
 
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Winkelmandje</title>
+    <link rel="stylesheet" href="~/site.css" />
+</head>
+<body>
+    <div class="winkelmandje2">
+        <h1>Jouw winkelmandje</h1>
 
+        @if (Model.winkelwagen.Any())
+        {
+            <ul>
+                @foreach (var item in Model.winkelwagen)
+                {
+                    <li>
+                        <strong>@item.Name</strong> - €@item.Price.ToString("0.00")<br />
+                        <p>@item.Description</p>
+                        <button class="remove-from-cart" data-id="@item.Id">🗑️ Verwijder</button>
+                    </li>
+                }
+            </ul>
 
+            <p><strong>Totaal:</strong> €@Model.TotaalPrijs.ToString("0.00")</p>
+        }
+        else
+        {
+            <p>Je winkelmandje is leeg.</p>
+        }
 
+        <a asp-page="/index4" class="betalen">Verder naar betalen</a>
+        <a asp-page="/index" class="registreren">Terug naar beginscherm</a>
+    </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.remove-from-cart').forEach(button => {
+                button.addEventListener('click', () => {
+                    const id = parseInt(button.getAttribute('data-id'));
 
+                    fetch('?handler=RemoveFromCart', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(id)
+                    })
+                    .then(res => res.json())
+                    .then(result => {
+                        if (result.success) {
+                            location.reload(); 
+                        } else {
+                            alert("❌ Verwijderen mislukt.");
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    <script src="~/site.js"></script>
+</body>
+</html>
 
 
